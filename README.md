@@ -15,6 +15,6 @@
 安装python包
 `pip3 install requests,frida,pyqt5,pexpect`
 
-需要安装百度云mac客户端
-需要安装aria2下载器
+- 需要安装百度云mac客户端
+- 需要安装aria2下载器
 
