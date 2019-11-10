@@ -1,5 +1,6 @@
 from DownloadBaiduYun import DownloadBDY
 import sys
+import PyQt5.QtGui
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 
