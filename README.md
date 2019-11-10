@@ -6,7 +6,9 @@
 本软件暂只支持下载自己网盘的文件
 
 ## 用法
-1. `python3 main.py`
+1. `python3 main.py` or []: https://github.com/lyp741/BaiduyunDownload/releases/download/1.0/BaiduDownload-v1.0.zip	"下载"
+
+双击可执行文件
 2. 点击上方按钮，自动打开百度云客户端
 3. 成功后下方会列出网盘里的文件
 4. 双击文件名称开始下载
