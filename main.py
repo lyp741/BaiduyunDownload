@@ -63,6 +63,7 @@ class DownloadPath(QThread):
             self.t = DownloadThread(i,self.bdyd,False)
             self.t.start()
             self.t.wait()
+        self.bdyd.sigDlded.emit('Downloaded','Download '+self.dirname+' Success!') 
 
 class BDYDownload(QWidget):
     bdy = None

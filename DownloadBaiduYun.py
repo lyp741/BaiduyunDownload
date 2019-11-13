@@ -53,8 +53,10 @@ class DownloadBDY:
         
     def Download_from_url(self, u,file_name):
         print('Downloading from url:'+ u)
-        print(os.path.split(os.path.realpath(__file__))[0])
-        cmd = './aria2c "'+u + ' --dir '+os.path.split(os.path.realpath(__file__))[0]+ '" --out "'+file_name+'" --header "User-Agent: netdisk;2.2.3;pc;pc-mac;10.15.1;macbaiduyunguanjia" --header "Cookie: '+self.cookie+'" -s 128 -k 1M --max-connection-per-server=128 --continue=true'
+        # print(os.path.split(os.path.realpath(__file__))[0])
+        dir = os.path.dirname(os.path.realpath(sys.argv[0]))
+        print(dir)
+        cmd = dir + '/aria2c "'+u + '" --out "'+file_name+'" --header "User-Agent: netdisk;2.2.3;pc;pc-mac;10.15.1;macbaiduyunguanjia" --header "Cookie: '+self.cookie+'" -s 128 -k 1M --max-connection-per-server=128 --continue=true '+ ' --dir='+os.path.expanduser('~/Downloads')
         # p = subprocess.Popen(cmd,shell=True,stdout=subprocess.PIPE)
         # for i in iter(p.stdout.readline,'b'):
         #     if not i:
