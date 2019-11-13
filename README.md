@@ -23,3 +23,6 @@
 - 需要安装百度云mac客户端
 - 需要安装aria2下载器
 
+## 打包
+通过如下命令可将python文件打包为可执行文件
+`pyinstaller --windowed --onefile --clean --noconfirm main.py`

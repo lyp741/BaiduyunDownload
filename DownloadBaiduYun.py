@@ -5,6 +5,7 @@ from concurrent.futures import ThreadPoolExecutor, wait
 import subprocess
 from injectBd import injectBD
 import sys
+import os
 
 class DownloadBDY:
     inited = False
@@ -32,6 +33,16 @@ class DownloadBDY:
             ret.append(d)
         self.filelist = ret
 
+    def get_list_files(self, dir='/'):
+        host = 'https://pan.baidu.com'
+        u = '/api/list' + self.params + '&dir=' + dir
+        ret = []
+        r = requests.get(host+u,headers=self.Headers)
+        file_list = json.loads(r.content)['list']
+        for l in file_list:
+            d = {'isdir':l['isdir'], 'server_filename': l['server_filename']}
+            ret.append(d)
+        return ret
 
     def Download_from_path(self,file_name='氯化虫4_x264.mp4'):
         host = 'https://d.pcs.baidu.com'
@@ -42,7 +53,8 @@ class DownloadBDY:
         
     def Download_from_url(self, u,file_name):
         print('Downloading from url:'+ u)
-        cmd = './aria2c "'+u + '" --out "'+file_name+'" --header "User-Agent: netdisk;2.2.3;pc;pc-mac;10.15.1;macbaiduyunguanjia" --header "Cookie: '+self.cookie+'" -s 128 -k 1M --max-connection-per-server=128 --continue=true'
+        print(os.path.split(os.path.realpath(__file__))[0])
+        cmd = './aria2c "'+u + ' --dir '+os.path.split(os.path.realpath(__file__))[0]+ '" --out "'+file_name+'" --header "User-Agent: netdisk;2.2.3;pc;pc-mac;10.15.1;macbaiduyunguanjia" --header "Cookie: '+self.cookie+'" -s 128 -k 1M --max-connection-per-server=128 --continue=true'
         # p = subprocess.Popen(cmd,shell=True,stdout=subprocess.PIPE)
         # for i in iter(p.stdout.readline,'b'):
         #     if not i:
