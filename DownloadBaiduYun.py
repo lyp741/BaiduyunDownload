@@ -42,7 +42,7 @@ class DownloadBDY:
         
     def Download_from_url(self, u,file_name):
         print('Downloading from url:'+ u)
-        cmd = 'aria2c "'+u + '" --out "'+file_name+'" --header "User-Agent: netdisk;2.2.3;pc;pc-mac;10.15.1;macbaiduyunguanjia" --header "Cookie: '+self.cookie+'" -s 128 -k 1M --max-connection-per-server=128 --continue=true'
+        cmd = './aria2c "'+u + '" --out "'+file_name+'" --header "User-Agent: netdisk;2.2.3;pc;pc-mac;10.15.1;macbaiduyunguanjia" --header "Cookie: '+self.cookie+'" -s 128 -k 1M --max-connection-per-server=128 --continue=true'
         # p = subprocess.Popen(cmd,shell=True,stdout=subprocess.PIPE)
         # for i in iter(p.stdout.readline,'b'):
         #     if not i:
