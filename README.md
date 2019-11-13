@@ -12,7 +12,7 @@
 ![](https://github.com/lyp741/BaiduyunDownload/raw/master/imgs/open.png)
 3. 成功后下方会列出网盘里的文件 (若不成功多试几次，百度云崩溃属于正常现象。。)
 ![](https://github.com/lyp741/BaiduyunDownload/raw/master/imgs/load.png)
-4. 双击文件名称开始下载,
+4. 选中文件名或文件夹开始下载,
 ![](https://github.com/lyp741/BaiduyunDownload/raw/master/imgs/download.png)
 5. 终端显示下载进度和速度
 ![](https://github.com/lyp741/BaiduyunDownload/raw/master/imgs/speed.png)
