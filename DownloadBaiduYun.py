@@ -6,10 +6,13 @@ import subprocess
 from injectBd import injectBD
 import sys
 import os
+import pickle
 
 class DownloadBDY:
     inited = False
-    def __init__(self):
+    failed = []
+    user_cookie = 'user.pkl'
+    def inject(self):
         ibd = injectBD()
         self.tm, self.rand, self.devuid, self.bduss, self.stoken = ibd.Init('百度网盘')
         self.cookie = 'BDUSS=' + self.bduss + ';STOKEN=' + self.stoken 
@@ -18,9 +21,27 @@ class DownloadBDY:
             # 'Host':'baidu.com',
             # 'Range': 'bytes=0-',
             'Cookie':self.cookie,
-            'User-Agent':'netdisk;2.2.3;pc;pc-mac;10.15.1;macbaiduyunguanjia'
+            'User-Agent':'netdisk;2.2.3;pc;pc-mac;10.15.1;macbaiduyunguanjia',
+            "Content-Type": "text/plain; charset=utf-8"
         }
         print('Cookie::', self.cookie)
+        with open(self.user_cookie,'wb') as f:
+            pickle.dump(self,f)
+
+    def __init__(self):
+        if os.path.exists(self.user_cookie):
+            with open(self.user_cookie,'rb') as f:
+                tmp = pickle.load(f)
+                self.cookie = tmp.cookie
+                self.params = tmp.params
+                self.Headers = tmp.Headers
+                self.tm = tmp.tm
+                self.rand = tmp.rand
+                self.devuid = tmp.devuid
+                self.bduss = tmp.bduss
+                self.stoken = tmp.stoken
+        else:
+            self.inject()
 
     def list_files(self,dir='/'):
         host = 'https://pan.baidu.com'
@@ -46,10 +67,27 @@ class DownloadBDY:
 
     def Download_from_path(self,file_name='氯化虫4_x264.mp4'):
         host = 'https://d.pcs.baidu.com'
-        u = '/rest/2.0/pcs/file'+self.params+'&path=/'+file_name
-        r = requests.get(host+u,headers=self.Headers)
-        u = json.loads(r.content)['urls'][0]['url']
-        self.Download_from_url(u,file_name)
+        u = '/rest/2.0/pcs/file'#+self.params+'&path='+file_name
+        addr = host+u
+        dat = {
+            'devuid':self.devuid,
+            'time':self.tm,
+            'rand':self.rand,
+            'path':file_name,
+            'method':'locatedownload',
+            'app_id':'250528',
+            'ver':'4.0'
+        }
+        r = requests.get(addr,params=dat,headers=self.Headers)
+        # print(addr,r.content)
+        try:
+            u = json.loads(r.content)['urls'][0]['url']
+            self.Download_from_url(u,file_name)
+        except:
+            self.failed.append(file_name)
+            print(addr,r.content)
+            return -1
+        return 0
         
     def Download_from_url(self, u,file_name):
         print('Downloading from url:'+ u)
@@ -70,6 +108,7 @@ class DownloadBDY:
 
 if __name__ == "__main__":
     print('Downloading...')
-    # Download_from_path('阳光电影www.ygdy8.com.速度与激情：特别行动.HD.1080p.中英双字幕.mkv')
+    a = DownloadBDY()
+    a.Download_from_path('/52 数据分析实战45讲【瑞客论坛 www.ruike1.com】/pdf/Do_09 数据采集如何用八爪鱼采集微博上的“D&G”评论.pdf')
     # Download_from_url('https://d.pcs.baidu.com/file/f0fc7e66973f129974e5d35e7d560049?fid=2712021640-250528-533246122739205&amp;dstime=1572172464&amp;rt=sh&amp;sign=FDtAERV-DCb740ccc5511e5e8fedcff06b081203-Qfd4wQ4LK3KxgqE4OLNNHTf%2Buwc%3D&amp;expires=8h&amp;chkv=1&amp;chkbd=0&amp;chkpc=&amp;dp-logid=6952602860418330679&amp;dp-callid=0&amp;shareid=2837947211&amp;r=798114631','ps.dmg')
     print('Done!')

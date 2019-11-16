@@ -4,3 +4,5 @@ build/*
 dist/*
 .DS_Store
 main.spec
+*.pkl
+*.json

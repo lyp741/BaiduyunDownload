@@ -1,3 +1,4 @@
+import ssl
 from DownloadBaiduYun import DownloadBDY
 import sys
 import PyQt5.QtGui
@@ -63,7 +64,14 @@ class DownloadPath(QThread):
             self.t = DownloadThread(i,self.bdyd,False)
             self.t.start()
             self.t.wait()
-        self.bdyd.sigDlded.emit('Downloaded','Download '+self.dirname+' Success!') 
+        if self.bdyd.bdy.failed != []:
+            self.bdyd.sigDlded.emit('Downloaded','Download '+self.dirname+' Failed!')
+            print('failed.....')
+            print(self.bdyd.bdy.failed)
+            self.bdyd.bdy.failed = []
+        else:
+            self.bdyd.sigDlded.emit('Downloaded','Download '+self.dirname+' Success!')
+
 
 class BDYDownload(QWidget):
     bdy = None
