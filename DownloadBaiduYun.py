@@ -94,9 +94,7 @@ class DownloadBDY:
         # print(os.path.split(os.path.realpath(__file__))[0])
         dir = os.path.dirname(os.path.realpath(sys.argv[0]))
         print(dir)
-        # cmd = dir + '/aria2c "'+u + '" --out "'+file_name+'" --header "User-Agent: netdisk;2.2.4;pc;pc-mac;10.14.5;macbaiduyunguanjia","X-Download-From: baiduyun","Cache-Control: no-cache","Pragma: no-cache" --header "Cookie: '+self.cookie+'" --split=8 -k 1M --max-connection-per-server=128 --continue=true '+ ' --dir='+os.path.expanduser('~/Downloads')
-        cmd = dir + '/aria2c "'+u + '" --out "'+file_name+'" --header "User-Agent: netdisk;2.2.4;pc;pc-mac;10.14.5;macbaiduyunguanjia","X-Download-From: baiduyun","Cache-Control: no-cache","Pragma: no-cache" --header "Cookie: '+self.cookie+'" --split=8 --max-download-limit=10000000M --continue=true '+ ' --dir='+os.path.expanduser('~/Downloads')
-
+        cmd = dir + '/aria2c "'+u + '" --out "'+file_name+'" --header "User-Agent: netdisk;2.2.3;pc;pc-mac;10.15.1;macbaiduyunguanjia" --header "Cookie: '+self.cookie+'" -s 128 -k 1M --max-connection-per-server=128 --continue=true '+ ' --dir='+os.path.expanduser('~/Downloads')
         # p = subprocess.Popen(cmd,shell=True,stdout=subprocess.PIPE)
         # for i in iter(p.stdout.readline,'b'):
         #     if not i:
@@ -111,7 +109,6 @@ class DownloadBDY:
 if __name__ == "__main__":
     print('Downloading...')
     a = DownloadBDY()
-    a.cookie = ''
-    # a.Download_from_path('/52 数据分析实战45讲【瑞客论坛 www.ruike1.com】/pdf/Do_09 数据采集如何用八爪鱼采集微博上的“D&G”评论.pdf')
-    a.Download_from_url('','ps.zip')
+    a.Download_from_path('/52 数据分析实战45讲【瑞客论坛 www.ruike1.com】/pdf/Do_09 数据采集如何用八爪鱼采集微博上的“D&G”评论.pdf')
+    # Download_from_url('https://d.pcs.baidu.com/file/f0fc7e66973f129974e5d35e7d560049?fid=2712021640-250528-533246122739205&amp;dstime=1572172464&amp;rt=sh&amp;sign=FDtAERV-DCb740ccc5511e5e8fedcff06b081203-Qfd4wQ4LK3KxgqE4OLNNHTf%2Buwc%3D&amp;expires=8h&amp;chkv=1&amp;chkbd=0&amp;chkpc=&amp;dp-logid=6952602860418330679&amp;dp-callid=0&amp;shareid=2837947211&amp;r=798114631','ps.dmg')
     print('Done!')
